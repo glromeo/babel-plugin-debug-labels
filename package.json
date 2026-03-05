@@ -1,8 +1,12 @@
 {
   "name": "babel-plugin-debug-labels",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "index.js",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/glromeo/babel-plugin-debug-labels"
+  },
   "files": [
     "index.js",
     "LICENSE",
