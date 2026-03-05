@@ -4,7 +4,9 @@
   "main": "index.js",
   "license": "MIT",
   "files": [
-    "index.js"
+    "index.js",
+    "LICENSE",
+    "README.md"
   ],
   "scripts": {
     "test": "jest"

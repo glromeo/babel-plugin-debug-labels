@@ -34,6 +34,28 @@ module.exports = {
 }
 ```
 
+## Programmatic usage with options
+
+```javascript
+const babel = require("@babel/core");
+const plugin = require("babel-plugin-debug-labels");
+
+const result = babel.transformSync(code, {
+  plugins: [
+    [
+      plugin, 
+      {
+        accept: (name) => name === "store" || name === "signal",
+        debugProperty: "debugLabel"
+      }
+    ]
+  ]
+});
+```
+
+- **`accept`** `(name: string) => boolean` — determines which call expressions are treated as signal/atom constructors. Defaults to matching `atom`, `signal`, `computed`, and `effect`.
+- **`debugProperty`** `string` — the property name assigned on the variable. Defaults to `"debugLabel"`.
+
 ## What it does
 
 The plugin automatically detects signals (or atoms) creation (like `signal(...)` or `computed(() => ...)`) preceeded by
@@ -92,6 +114,12 @@ build({
     })
   ]
 });
+```
+
+The `plugins` array follows standard Babel plugin convention. The `babel-plugin-` prefix is optional, and options can be passed using a tuple:
+
+```javascript
+plugins: [["debug-labels", { debugProperty: "debugInfo" }]]
 ```
 
 ## License
