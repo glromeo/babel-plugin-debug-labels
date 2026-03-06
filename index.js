@@ -4,14 +4,14 @@ const {basename, dirname, extname} = require("path");
  * Babel plugin debug labels
  *
  * @param babel {{types: import("@babel/types")}}
- * @param options {{ accept?: (name: string) => boolean, debugProperty?: string }}
+ * @param options {{ accept?: (name: string) => boolean, property?: string }}
  * @returns {import("@babel/core").PluginObj}
  */
 module.exports = function pluginDebugLabels(
     {types},
     {
         accept = name => name === "atom" || name === "signal" || name === "computed" || name === "effect",
-        debugProperty = "debugLabel"
+        property = "debugLabel"
     } = {}
 ) {
     const {
@@ -34,7 +34,7 @@ module.exports = function pluginDebugLabels(
     const getExpressionStatement = (varName, displayName) => expressionStatement(
         assignmentExpression(
             "=",
-            memberExpression(identifier(varName), identifier(debugProperty)),
+            memberExpression(identifier(varName), identifier(property)),
             stringLiteral(displayName)
         )
     );
@@ -55,7 +55,7 @@ module.exports = function pluginDebugLabels(
                     const filename = state.filename || "unknown";
                     let displayName = basename(filename, extname(filename));
                     if (displayName === "index") {
-                        displayName = dirname(filename) || "unknown";
+                        displayName = basename(dirname(filename)) || "unknown";
                     }
                     const varName = displayName.replace(/-/g, "_");
                     const declarator = variableDeclarator(identifier(varName), declaration);

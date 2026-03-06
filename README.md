@@ -46,7 +46,7 @@ const result = babel.transformSync(code, {
       plugin, 
       {
         accept: (name) => name === "store" || name === "signal",
-        debugProperty: "debugLabel"
+        property: "debugLabel"
       }
     ]
   ]
@@ -54,7 +54,7 @@ const result = babel.transformSync(code, {
 ```
 
 - **`accept`** `(name: string) => boolean` — determines which call expressions are treated as signal/atom constructors. Defaults to matching `atom`, `signal`, `computed`, and `effect`.
-- **`debugProperty`** `string` — the property name assigned on the variable. Defaults to `"debugLabel"`.
+- **`property`** `string` — the property name assigned on the variable. Defaults to `"debugLabel"`.
 
 ## What it does
 
@@ -119,7 +119,7 @@ build({
 The `plugins` array follows standard Babel plugin convention. The `babel-plugin-` prefix is optional, and options can be passed using a tuple:
 
 ```javascript
-plugins: [["debug-labels", { debugProperty: "debugInfo" }]]
+plugins: [["debug-labels", { property: "debugInfo" }]]
 ```
 
 ## License

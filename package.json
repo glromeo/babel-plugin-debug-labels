@@ -1,6 +1,6 @@
 {
   "name": "babel-plugin-debug-labels",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "index.js",
   "license": "MIT",
   "repository": {
@@ -13,11 +13,16 @@
     "README.md"
   ],
   "scripts": {
-    "test": "jest"
+    "test": "jest --coverage"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "index.js"
+    ]
   },
   "peerDependencies": {
-    "@babel/core": "^7.28.5",
-    "@babel/types": "^7.28.5"
+    "@babel/core": "^7.29.0",
+    "@babel/types": "^7.29.0"
   },
   "devDependencies": {
     "@babel/core": "^7.29.0",

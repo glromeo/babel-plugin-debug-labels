@@ -4,8 +4,9 @@ const path = require("path");
 const fs = require("fs/promises");
 const os = require("node:os");
 
-async function transform(inputCode, filename = `test-${crypto.randomUUID()}.js`) {
+async function transformWithESBuild(inputCode, filename = `test-${crypto.randomUUID()}.js`) {
   const tmpFile = path.join(os.tmpdir(), filename);
+  await fs.mkdir(path.dirname(tmpFile), {recursive: true});
   await fs.writeFile(tmpFile, inputCode);
   try {
     const result = await build({
@@ -33,10 +34,21 @@ function normalize(code) {
 }
 
 function stripMap(code) {
-  return code.slice(0, code.lastIndexOf("//# sourceMappingURL"));
+  const idx = code.lastIndexOf("//# sourceMappingURL");
+  return idx === -1 ? code : code.slice(0, idx);
+}
+
+function transformWithBabel(code, filename) {
+  const result = require("@babel/core").transformSync(code, {
+    filename,
+    plugins: [require("../index")],
+    sourceType: "module"
+  });
+  return result.code;
 }
 
 module.exports = {
   normalize,
-  transform
+  transformWithESBuild: transformWithESBuild,
+  transformWithBabel
 };
