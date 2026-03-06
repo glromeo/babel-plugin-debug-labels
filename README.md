@@ -22,7 +22,9 @@ Add the plugin to your Babel configuration:
 
 ```json
 {
-  "plugins": ["babel-plugin-debug-labels"]
+  "plugins": [
+    "babel-plugin-debug-labels"
+  ]
 }
 ```
 
@@ -43,7 +45,7 @@ const plugin = require("babel-plugin-debug-labels");
 const result = babel.transformSync(code, {
   plugins: [
     [
-      plugin, 
+      plugin,
       {
         accept: (name) => name === "store" || name === "signal",
         property: "debugLabel"
@@ -53,7 +55,8 @@ const result = babel.transformSync(code, {
 });
 ```
 
-- **`accept`** `(name: string) => boolean` — determines which call expressions are treated as signal/atom constructors. Defaults to matching `atom`, `signal`, `computed`, and `effect`.
+- **`accept`** `(name: string) => boolean` — determines which call expressions are treated as signal/atom constructors.
+  Defaults to matching `atom`, `signal`, `computed`, and `effect`.
 - **`property`** `string` — the property name assigned on the variable. Defaults to `"debugLabel"`.
 
 ## What it does
@@ -99,7 +102,7 @@ configuration.
 This plugin works seamlessly with esbuild via `esbuild-babel-plugin`:
 
 ```javascript
-const { build } = require("esbuild");
+const {build} = require("esbuild");
 const esbuildBabelPlugin = require("esbuild-babel-plugin");
 
 build({
@@ -116,10 +119,11 @@ build({
 });
 ```
 
-The `plugins` array follows standard Babel plugin convention. The `babel-plugin-` prefix is optional, and options can be passed using a tuple:
+The `plugins` array follows standard Babel plugin convention. The `babel-plugin-` prefix is optional, and options can be
+passed using a tuple:
 
 ```javascript
-plugins: [["debug-labels", { property: "debugInfo" }]]
+plugins: [["debug-labels", {property: "debugInfo"}]]
 ```
 
 ## License
